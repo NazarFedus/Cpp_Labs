@@ -1,9 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+using namespace std;
+
+#define N 100000
+#define REPEAT (count, code) for(int i = 0; i < count; i++){ code }
+
+double getCurrentTime(){
+     clock_t time = clock();
+     if(time != (clock_t) - 1){
+          return ((double)time / (double)CLOCKS_PER_SEC);
+     }
+     return 0;
+}
 
 
-// Сортування Шелла
+// ShellSort
 void ShellSort(int n, int mass[])
 {
     int i, j, step;
@@ -23,7 +36,7 @@ void ShellSort(int n, int mass[])
         }
 }
 
-// Швидке сортування
+// QuickSort
 void QuickSort (int *arr, int a, int b){
 
      int i=a, j=b, m = rand ()% (b-a) +a;
@@ -51,5 +64,32 @@ void QuickSort (int *arr, int a, int b){
 }
 
 int main(){
-     
+
+     double startTime, endTime;
+
+     // For ShellSort
+          // input data
+          int mass[N];
+          for(int i = 0; i < N; i++){
+               mass[i] = rand() % 100;
+          }
+          // sort
+          startTime = getCurrentTime();
+          ShellSort(N, mass);
+          endTime = getCurrentTime();
+
+          cout << "ShellSort: " << endTime - startTime << endl;
+
+     // For QuickSort
+          // input data
+          int arr[N];
+          for(int i = 0; i < N; i++){
+               arr[i] = rand() % 100;
+          }
+          // sort
+          startTime = getCurrentTime();
+          QuickSort(arr, 0, N-1);
+          endTime = getCurrentTime();
+
+          cout << "QuickSort: " << endTime - startTime << endl;
 }
